@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function LoginForm() {
 
@@ -55,9 +56,9 @@ export default function LoginForm() {
 
       <p className="text-left text-[#334155] text-lg leading-snug">
         if you don't have an <br /> accout you can{' '}
-        <a href="#" className="text-[#2563eb] hover:underline font-medium">
+        <Link to="/signup" className="text-[#2563eb] hover:underline font-medium">
           sign up
-        </a>{' '}
+        </Link>{' '}
         for free.
       </p>
     </div>

@@ -1,11 +1,17 @@
-import Card from './components/card'; // Import as 'Card'
-import LoginForm from './components/LoginForm';
-import SignupForm from './components/SignupForm';
+import LogIn from './pages/LogIn';
+import SignUp from './pages/SignUp';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 export default function App() {
   return (
-    <div>
-   
-    </div>
+    <Router> 
+      <Routes>
+
+        <Route path="/" element={<LogIn />} />
+        <Route path="login" element={<LogIn />} />
+        <Route path="/signup" element={<SignUp />} />
+
+      </Routes>
+    </Router>
   );
 }

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function SignupForm() {
   const [formData, setFormData] = useState({
@@ -6,7 +7,7 @@ export default function SignupForm() {
     email: '',
     password: '',
     role: 'donor',
-    Authnumber: '',
+    Authnumber: '0',
     agreedToTerms: false,
   });
 
@@ -29,10 +30,10 @@ export default function SignupForm() {
   const [showInput, setShowInput] = useState(false);
 
   return (
-    <div className="w-[380px] bg-white p-12 border border-gray-200 rounded-[24px] shadow-sm font-sans mx-auto mt-10">
+    <div className="w-[380px] bg-white p-12 font-sans mx-auto ">
       
       <h2 className="text-[34px] font-bold text-[#0f172a] leading-tight mb-10">
-        create your <br /> accout
+         create your accout
       </h2>
 
       <form onSubmit={handleSubmit} className="space-y-4 mb-6">
@@ -93,7 +94,7 @@ export default function SignupForm() {
                   type="button"
                   onClick={() => {
                     setShowInput(true);
-                    setFormData((prev) => ({ ...prev, role: 'charity', Authnumber: '0' }));
+                    setFormData((prev) => ({ ...prev, role: 'charity', Authnumber: '' }));
                   }}
                   className={`flex-1 text-center py-2 px-6 rounded-full text-lg font-medium transition-colors ${
                     formData.role === 'charity'
@@ -150,9 +151,9 @@ export default function SignupForm() {
       {/* Login link */}
       <p className="text-[#334155] text-lg leading-snug">
         already have an accout?{' '}
-        <a href="#" className="text-[#2563eb] hover:underline font-medium">
+        <Link to="/login" className="text-[#2563eb] hover:underline font-medium">
           log in
-        </a>
+        </Link>
       </p>
     </div>
   );
