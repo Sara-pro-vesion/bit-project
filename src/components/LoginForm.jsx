@@ -20,7 +20,7 @@ export default function LoginForm() {
         welcome to <br /> brandName
       </h2>
 
-      <form onSubmit={handleSubmit} className=" space-y-4 mb-6">
+      <form onSubmit={handleSubmit} className=" space-y-7 mb-6">
         
         <div>
           <input 
@@ -47,7 +47,7 @@ export default function LoginForm() {
         <div className="text-left">
           <button 
             type="submit" 
-            className="bg-[#2563eb] text-white px-8 py-2 rounded-xl text-xl font-medium hover:bg-[#1d4ed8] transition-colors"
+            className="bg-[#2563eb] mt-1 text-white px-8 py-2 rounded-xl text-xl font-medium hover:bg-[#1d4ed8] transition-colors"
           >
             Log In
           </button>
@@ -55,7 +55,7 @@ export default function LoginForm() {
       </form>
 
       <p className="text-left text-[#334155] text-lg leading-snug">
-        if you don't have an <br /> accout you can{' '}
+        if you don't have an <br /> account you can{' '}
         <Link to="/signup" className="text-[#2563eb] hover:underline font-medium">
           sign up
         </Link>{' '}

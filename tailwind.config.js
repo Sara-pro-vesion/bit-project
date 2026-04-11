@@ -3,7 +3,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        'JetBrains-Mono': ['"JetBrains Mono"', 'monospace'],
+        'Poppines': ['Poppines', 'Inter', 'sans-serif'],
+        'Inter': ['Inter', 'sans-serif'],
+        'JetBrains-Mono': ['"JetBrains Mono"', 'Poppines', 'Inter'],
       },
     },
   },
