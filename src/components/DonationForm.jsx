@@ -1,14 +1,39 @@
-import { useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 
-export default function DonationForm({ onSubmit }) {
-  const [image, setImage] = useState(null);
-  const [preview, setPreview] = useState(null);
+export default function DonationForm({ onSubmit, initialValues = {}, submitLabel }) {
+  const [image, setImage] = useState(initialValues.image ?? null);
+  const [preview, setPreview] = useState(
+    initialValues.image
+      ? typeof initialValues.image === "string"
+        ? initialValues.image
+        : URL.createObjectURL(initialValues.image)
+      : null
+  );
   const [form, setForm] = useState({
-    typeOfDonation: "",
- quantity: "",
- description: "",
-     contactInfo: "",
+    typeOfDonation: initialValues.typeOfDonation ?? "",
+    quantity: initialValues.quantity ?? "",
+    description: initialValues.description ?? "",
+    contactInfo: initialValues.contactInfo ?? "",
+    id: initialValues.id,
   });
+
+  useEffect(() => {
+    setForm({
+      typeOfDonation: initialValues.typeOfDonation ?? "",
+      quantity: initialValues.quantity ?? "",
+      description: initialValues.description ?? "",
+      contactInfo: initialValues.contactInfo ?? "",
+      id: initialValues.id,
+    });
+    setImage(initialValues.image ?? null);
+    setPreview(
+      initialValues.image
+        ? typeof initialValues.image === "string"
+          ? initialValues.image
+          : URL.createObjectURL(initialValues.image)
+        : null
+    );
+  }, [initialValues]);
 
   const fileInputRef = useRef(null);
 
@@ -77,7 +102,7 @@ export default function DonationForm({ onSubmit }) {
           onClick={handleSubmit}
           className="px-8 py-2 bg-gray-800 hover:bg-gray-900 text-white text-sm font-medium rounded-lg transition-colors"
         >
-          done
+          {submitLabel ?? (form.id ? 'save' : 'done')}
         </button>
       </div>
     </div>

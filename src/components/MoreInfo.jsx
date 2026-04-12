@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const getStatus = (remaining, hasPendingClaim) => {
   if (remaining === 0) return "unavailable";
@@ -10,7 +10,6 @@ export default function DonationModal({
   title = "donation type",
   contactInfo = "123455224",
   initialQuantity = 25,
-  initialStatus = "available",
   description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
   image = null,
   onClose,
@@ -19,6 +18,12 @@ export default function DonationModal({
   const [qty, setQty] = useState(0);
   const [remaining, setRemaining] = useState(initialQuantity);
   const [hasPendingClaim, setHasPendingClaim] = useState(false);
+
+  useEffect(() => {
+    setRemaining(initialQuantity);
+    setQty(0);
+    setHasPendingClaim(false);
+  }, [initialQuantity]);
 
   const status = getStatus(remaining, hasPendingClaim);
 
