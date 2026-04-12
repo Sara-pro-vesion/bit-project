@@ -1,14 +1,16 @@
 import FilterBar from './FilterBar';
-import Card from './CardCh';
 import { useState } from 'react';
+import CardCh from './CardCh';
+import Img from "../assets/food.jpg";
+import Shoes from "../assets/shoes.jpg";
 
 const donations = [
-  { id: 1, type: 'Food Pack', quantity: 27, image: null, category: 'food', contact: '123455224', description: 'Fresh food packs available for families in need.' },
-  { id: 2, type: 'Clothes', quantity: 10, image: null, category: 'clothes', contact: '987654321', description: 'Gently used clothing for all ages.' },
+  { id: 1, type: 'Food Pack', quantity: 27, image: Img, category: 'food', contact: '123455224', description: 'Fresh food packs available for families in need.' },
+  { id: 2, type: 'Clothes', quantity: 10, image: Shoes, category: 'clothes', contact: '987654321', description: 'Gently used clothing for all ages.' },
   { id: 3, type: 'Toys', quantity: 5, image: null, category: 'toys', contact: '111222333', description: 'Educational toys for children aged 3–10.' },
 ];
 
-export default function Marketplace() {
+export default function Marketplace({ onSelectItem }) {
   const [category, setCategory] = useState('all');
 
   const filteredDonations = category === 'all'
@@ -22,7 +24,7 @@ export default function Marketplace() {
       <main className="max-w-7xl mx-auto mt-5 p-6 lg:p-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-10 gap-x-5 justify-items-center">
           {filteredDonations.map((item) => (
-            <Card
+            <CardCh
               key={item.id}
               data={item}
             />

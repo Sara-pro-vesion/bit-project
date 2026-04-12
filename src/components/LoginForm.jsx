@@ -63,7 +63,7 @@ export default function LoginForm() {
       </p>
       <p className="text-left text-[#334155] text-lg leading-snug mt-4">
         or view available donations directly{' '}
-        <Link to="/" className="text-[#2563eb] hover:underline font-medium">
+        <Link to="/CharityHome" className="text-[#2563eb] hover:underline font-medium">
           here
         </Link>.
       </p>

@@ -33,7 +33,7 @@ export default function SignupForm() {
     <div className="w-[380px] bg-white p-12 font-sans mx-auto ">
       
       <h2 className="text-[34px] font-bold text-[#0f172a] leading-tight mb-10">
-         create your accout
+         create your account
       </h2>
 
       <form onSubmit={handleSubmit} className="space-y-4 mb-6">
@@ -157,7 +157,7 @@ export default function SignupForm() {
       </p>
       <p className="text-[#334155] text-lg leading-snug mt-4">
         or continue to the donation marketplace{' '}
-        <Link to="/" className="text-[#2563eb] hover:underline font-medium">
+        <Link to="/CharityHome" className="text-[#2563eb] hover:underline font-medium">
           here
         </Link>.
       </p>

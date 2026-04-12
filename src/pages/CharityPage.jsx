@@ -4,7 +4,10 @@ import Nav from "../components/nav";
 import Marketplace from "../components/Market";
 import Footer from "../components/Footer";
 
+
 export default function CharityPage() {
+
+    
   return (
     <div>
       <div className="flex flex-col gap-20 md:gap-[120px]">
