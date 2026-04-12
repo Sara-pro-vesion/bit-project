@@ -155,6 +155,12 @@ export default function SignupForm() {
           log in
         </Link>
       </p>
+      <p className="text-[#334155] text-lg leading-snug mt-4">
+        or continue to the donation marketplace{' '}
+        <Link to="/" className="text-[#2563eb] hover:underline font-medium">
+          here
+        </Link>.
+      </p>
     </div>
   );
 }

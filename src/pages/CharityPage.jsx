@@ -1,15 +1,18 @@
-import FilterBar from "../components/FilterBar";
-import Hero from "../components/Hero";
+
+import Hero from "../components/Hero1";
 import Nav from "../components/nav";
+import Marketplace from "../components/Market";
+import Footer from "../components/Footer";
 
 export default function CharityPage() {
   return (
     <div>
-      <div className="flex flex-col gap-20 md:gap-40">
+      <div className="flex flex-col gap-20 md:gap-[120px]">
         <Nav />
         <Hero />
       </div>
-      <FilterBar />
+      <Marketplace />
+      <Footer />
     </div>
   );
 }

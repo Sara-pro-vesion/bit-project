@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 export default function FilterBar({ onCategoryChange }) {
   const categories = [
-    'all', 'food', 'toys', 'clothes', 'forniture', 'Elecs', 'books', 'money'
+    'all', 'food', 'toys', 'clothes', 'forniture', 'Elecs', 'books', 'money' ,'vehicule' 
   ];
 
   const [active, setActive] = useState('all');
@@ -13,8 +13,8 @@ export default function FilterBar({ onCategoryChange }) {
   };
 
   return (
-    <div className="md:mt-12 mt-10 w-full border-y border-gray-300 py-3 px-10 flex items-center gap-6 overflow-x-auto no-scrollbar">
-      <span className="text-gray-600 pr-10 font-mono whitespace-nowrap">
+    <div className="md:mt-12 mt-10 w-full border-y border-gray-300 py-3 px-10 flex items-center lg:gap-[110px]  md:gap-[55px] overflow-x-auto no-scrollbar">
+      <span className="text-gray-600 pr-10 font-mono flex-start whitespace-nowrap">
         filter by
       </span>
       <div className="flex flex-nowrap items-center gap-3">
