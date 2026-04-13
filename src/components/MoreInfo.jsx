@@ -6,7 +6,7 @@ const getStatus = (remaining) => {
 };
 
 export default function DonationModal({
-  donationId, // This should be the MongoDB _id
+  donationId, 
   title,
   contactInfo,
   initialQuantity,
@@ -15,7 +15,7 @@ export default function DonationModal({
   onClose,
   onClaim,
 }) {
-  // Start at 1 if available, otherwise 0
+  
   const [qty, setQty] = useState(initialQuantity > 0 ? 1 : 0);
   const [note, setNote] = useState("");
 
