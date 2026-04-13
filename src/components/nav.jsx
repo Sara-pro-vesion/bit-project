@@ -1,10 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import Kindreach from '../assets/kindreach.png';
+import { useAuth } from '../context/AuthContext';
 
 export default function Nav(){
     const navigate = useNavigate();
+    const { logout } = useAuth();
 
     const handleLogout = () => {
+        logout();
         navigate('/login');
     };
 

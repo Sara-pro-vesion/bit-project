@@ -1,12 +1,15 @@
 # Project Notes
 
 ## Overview
-KindReach is a Vite React frontend for a donation/claim workflow with login, signup, donor dashboard, charity marketplace, and profile/claims views.
+KindReach is a Vite React app with a lightweight Express API for a donation/claim workflow. It supports login, signup, donor donation posts with image uploads, charity marketplace browsing, and donation claim requests.
 
 ## Current Setup
-- Main workflow: `npm run dev`
-- Preview port: 5000
-- Vite is configured for Replit preview with `host: '0.0.0.0'`, `port: 5000`, and `allowedHosts: true`.
+- Main workflow: `node server/index.js & npx vite --host 0.0.0.0 --port 5000`
+- Frontend preview port: 5000
+- API server port: 3001
+- Vite proxies `/api` requests to the API server.
+- Uploaded images are stored under `public/uploads` and referenced as `/uploads/<filename>`.
+- App data is stored in `data/db.json` with `users`, `posts`, and `claims` arrays.
 
 ## Recent Fixes
 - Removed an invalid duplicate `AuthProvider` usage from `src/main.jsx`.
@@ -16,3 +19,5 @@ KindReach is a Vite React frontend for a donation/claim workflow with login, sig
 - Added safe defaults for list props so marketplace and post lists do not crash before data is loaded.
 - Fixed upload handling in `DonationForm` to use the selected file instead of the file list object.
 - Added form autocomplete attributes and improved MongoDB `_id` handling for claims/cards.
+- Added an Express backend with auth, donation post creation/editing, image upload support, marketplace listing, and claim creation/review endpoints.
+- Connected the charity marketplace page to fetch donation posts and create claims through the API.
