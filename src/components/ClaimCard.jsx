@@ -6,6 +6,7 @@ const statusStyles = {
 };
 
 export default function ClaimCard({ data, onApprove, onReject, onDelete }) {
+  const claimId = data?._id ?? data?.id;
   const statusClass = statusStyles[data?.status] ?? 'bg-slate-100 text-slate-700';
   const itemType = data?.donationType ?? data?.type ?? 'Unknown';
 
@@ -34,7 +35,7 @@ export default function ClaimCard({ data, onApprove, onReject, onDelete }) {
           <div className="mt-5 flex flex-wrap gap-2">
             {data?.status === 'pending' && onApprove && (
               <button
-                onClick={() => onApprove(data.id)}
+                onClick={() => onApprove(claimId)}
                 className="rounded-full bg-emerald-600 px-4 py-2 text-xs font-semibold text-white hover:bg-emerald-700"
               >
                 Approve
@@ -42,7 +43,7 @@ export default function ClaimCard({ data, onApprove, onReject, onDelete }) {
             )}
             {data?.status === 'pending' && onReject && (
               <button
-                onClick={() => onReject(data.id)}
+                onClick={() => onReject(claimId)}
                 className="rounded-full bg-amber-500 px-4 py-2 text-xs font-semibold text-white hover:bg-amber-600"
               >
                 Reject
@@ -50,7 +51,7 @@ export default function ClaimCard({ data, onApprove, onReject, onDelete }) {
             )}
             {onDelete && (
               <button
-                onClick={() => onDelete(data.id)}
+                onClick={() => onDelete(claimId)}
                 className="rounded-full bg-red-600 px-4 py-2 text-xs font-semibold text-white hover:bg-red-700"
               >
                 Delete

@@ -49,7 +49,8 @@ export default function LoginForm() {
         <div>
           <input 
             type="email" 
-          placeholder="email .." 
+          placeholder="email .."
+          autoComplete="email"
               value={email}
           onChange={(e) => setEmail(e.target.value)}
           className="w-full px-5 py-3 border border-gray-300 rounded-xl bg-white text-gray-900 placeholder:text-gray-400 text-lg focus:ring-2 focus:ring-blue-200 focus:border-blue-400 transition-all"
@@ -61,7 +62,8 @@ export default function LoginForm() {
         <div>
           <input 
             type="password" 
-            placeholder="password .." 
+            placeholder="password .."
+            autoComplete="current-password"
             value={password}
           onChange={(e) => setPassword(e.target.value)}
             className="w-full px-5 py-3 border border-gray-300 rounded-xl bg-white text-gray-900 placeholder:text-gray-400 text-lg focus:ring-2 focus:ring-blue-200 focus:border-blue-400 transition-all"

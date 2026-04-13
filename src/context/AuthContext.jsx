@@ -10,13 +10,20 @@ export const AuthProvider = ({ children }) => {
   // Check if already logged in on page load
   useEffect(() => {
     const checkUser = async () => {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        setLoading(false);
+        return;
+      }
+
       try {
         const res = await api.get('/auth/me'); 
-     setUser(res.data);
+        setUser(res.data?.user ?? res.data);
       } catch (err) {
         localStorage.removeItem('token');
-   } finally {
-        setLoading(false);      }
+      } finally {
+        setLoading(false);
+      }
     };
     checkUser();
   }, []);

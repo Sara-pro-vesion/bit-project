@@ -27,18 +27,14 @@ export default function DonationForm({ onSubmit, initialValues = {}, submitLabel
 
   const fileInputRef = useRef(null);
 
-const handleImageChange = (e) => {
-  const file = e.target.files;
 
-  if (file) {
-    const previewUrl = URL.createObjectURL(file);
+  const handleImageChange = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setImage(file);
+    setPreview(URL.createObjectURL(file));
+  };
 
-    setPreview(previewUrl); 
-    
-  } else {
-    console.log("No file selected or selection cancelled");
-  }
-};
 
   const handleChange = (e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));

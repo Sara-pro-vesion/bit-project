@@ -1,7 +1,7 @@
 import CardDo from "./CardDo";
 
 
-export default function PreviousPosts({ posts, onEdit }){
+export default function PreviousPosts({ posts = [], onEdit }){
     
     
     return(
