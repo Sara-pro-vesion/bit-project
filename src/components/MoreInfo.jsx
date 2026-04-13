@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 
-const getStatus = (remaining, hasPendingClaim) => {
+const getStatus = (remaining) => {
   if (remaining === 0) return "unavailable";
-  if (hasPendingClaim) return "pending";
   return "available";
 };
 
 export default function DonationModal({
+  donationId,
   title = "donation type",
   contactInfo = "123455224",
   initialQuantity = 25,
@@ -16,34 +16,24 @@ export default function DonationModal({
   onClaim,
 }) {
   const [qty, setQty] = useState(0);
-  const [remaining, setRemaining] = useState(initialQuantity);
-  const [hasPendingClaim, setHasPendingClaim] = useState(false);
+  const [note, setNote] = useState("");
 
   useEffect(() => {
-    setRemaining(initialQuantity);
     setQty(0);
-    setHasPendingClaim(false);
-  }, [initialQuantity]);
+    setNote("");
+  }, [initialQuantity, donationId]);
 
-  const status = getStatus(remaining, hasPendingClaim);
+  const status = getStatus(initialQuantity);
 
   const handleClaim = () => {
-    if (qty === 0 || status === "unavailable") return;
-    const newRemaining = remaining - qty;
-    setRemaining(newRemaining);
-    setQty(0);
-    setHasPendingClaim(true);
-    onClaim?.({ qty, remaining: newRemaining, status: getStatus(newRemaining, true) });
-  };
-
-  const handleConfirm = () => {
-    setHasPendingClaim(false);
+    if (status === "unavailable" || qty <= 0) return;
+    onClaim?.({ donationId, quantity: qty, note });
+    onClose?.();
   };
 
   const statusConfig = {
-    available:   { label: "available",   style: "text-emerald-500" },
-    pending:     { label: "pending",     style: "text-amber-500"   },
-    unavailable: { label: "unavailable", style: "text-red-500"     },
+    available: { label: "available", style: "text-emerald-500" },
+    unavailable: { label: "unavailable", style: "text-red-500" },
   };
 
   const { label, style } = statusConfig[status];
@@ -76,7 +66,7 @@ export default function DonationModal({
               contact info : <span className="text-gray-800">{contactInfo}</span>
             </p>
             <p className="text-sm text-gray-500">
-              remaining quantity : <span className="text-gray-800">{remaining}</span>
+              remaining quantity : <span className="text-gray-800">{initialQuantity}</span>
             </p>
             <p className="text-sm text-gray-500">
               status : <span className={`font-medium ${style}`}>{label}</span>
@@ -92,18 +82,15 @@ export default function DonationModal({
           <p className="text-sm text-gray-500 leading-relaxed">{description}</p>
         </div>
 
-        {/* Status banner */}
-        {status === "pending" && (
-          <div className="mb-4 px-4 py-2 bg-amber-50 border border-amber-200 rounded-lg flex items-center justify-between">
-            <p className="text-sm text-amber-700">Your claim is awaiting approval.</p>
-            <button
-              onClick={handleConfirm}
-              className="text-xs text-amber-700 underline hover:text-amber-900"
-            >
-              mark confirmed
-            </button>
-          </div>
-        )}
+        <div className="mb-5">
+          <label className="block text-sm font-medium text-gray-800 mb-2">Note</label>
+          <textarea
+            value={note}
+            onChange={(e) => setNote(e.target.value)}
+            className="w-full min-h-[100px] rounded-2xl border border-gray-300 px-4 py-3 text-sm text-gray-700 placeholder-gray-400 outline-none focus:border-gray-500"
+            placeholder="Add details for the donor (optional)"
+          />
+        </div>
 
         {status === "unavailable" && (
           <div className="mb-4 px-4 py-2 bg-red-50 border border-red-200 rounded-lg">
@@ -125,7 +112,7 @@ export default function DonationModal({
               <span className="text-white text-sm font-medium">{qty}</span>
             </div>
             <button
-              onClick={() => setQty((q) => Math.min(remaining, q + 1))}
+              onClick={() => setQty((q) => Math.min(initialQuantity, q + 1))}
               disabled={status !== "available"}
               className="w-9 h-9 border border-gray-300 rounded-r-md bg-white text-gray-700 text-lg hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed active:scale-95 transition-transform"
             >
@@ -135,7 +122,7 @@ export default function DonationModal({
 
           <button
             onClick={handleClaim}
-            disabled={qty === 0 || status !== "available"}
+            disabled={status !== "available" || qty <= 0}
             className="px-8 h-9 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-40 disabled:cursor-not-allowed text-white text-sm font-medium rounded-lg transition-colors"
           >
             claim

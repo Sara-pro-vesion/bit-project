@@ -6,14 +6,7 @@ import DonationForm from '../components/DonationForm'
 import Claims from '../components/Claims'
 import Footer from '../components/Footer'
 
-const initialPosts = [
-  { id: 1, typeOfDonation: 'Food Pack', quantity: 27, image: null, category: 'food', contactInfo: '123455224', description: 'Fresh food packs available for families in need.' },
-  { id: 2, typeOfDonation: 'Clothes', quantity: 10, image: null, category: 'clothes', contactInfo: '987654321', description: 'Gently used clothing for all ages.' },
-  { id: 3, typeOfDonation: 'Toys', quantity: 5, image: null, category: 'toys', contactInfo: '111222333', description: 'Educational toys for children aged 3–10.' },
-];
-
-export default function DonorPage() {
-  const [posts, setPosts] = useState(initialPosts);
+export default function DonorPage({ posts, claims, onAddPost, onUpdatePost, onApproveClaim, onRejectClaim }) {
   const [activePost, setActivePost] = useState(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
 
@@ -33,28 +26,15 @@ export default function DonorPage() {
 
   const handleSubmit = (formData) => {
     if (formData.id != null) {
-      setPosts((prev) => prev.map((item) => item.id === formData.id ? {
-        ...item,
-        typeOfDonation: formData.typeOfDonation,
-        quantity: formData.quantity,
-        description: formData.description,
-        contactInfo: formData.contactInfo,
-        image: formData.image,
-      } : item));
+      onUpdatePost?.({
+        ...formData,
+        quantity: Number(formData.quantity) || 0,
+      });
     } else {
-      const nextId = Math.max(0, ...posts.map((item) => item.id)) + 1;
-      setPosts((prev) => [
-        ...prev,
-        {
-          id: nextId,
-          typeOfDonation: formData.typeOfDonation,
-          quantity: formData.quantity,
-          description: formData.description,
-          contactInfo: formData.contactInfo,
-          image: formData.image,
-          category: 'other',
-        },
-      ]);
+      onAddPost?.({
+        ...formData,
+        quantity: Number(formData.quantity) || 0,
+      });
     }
 
     setIsFormOpen(false);
@@ -73,7 +53,12 @@ export default function DonorPage() {
       <div className="pt-24 flex flex-col gap-20 md:gap-[55px]">
         <Hero2 onCreate={handleCreate} />
         <PreviousPosts posts={posts} onEdit={handleEdit} />
-        <Claims />
+        <Claims
+          claims={claims}
+          mode="donor"
+          onApprove={onApproveClaim}
+          onReject={onRejectClaim}
+        />
       </div>
       <Footer />
 

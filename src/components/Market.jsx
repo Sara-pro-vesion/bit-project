@@ -2,18 +2,9 @@ import FilterBar from './FilterBar';
 import { useState } from 'react';
 import CardCh from './CardCh';
 import DonationModal from './MoreInfo';
-import Img from "../assets/food.jpg";
-import Shoes from "../assets/shoes.jpg";
 
-const initialDonations = [
-  { id: 1, type: 'Food Pack', quantity: 27, image: Img, category: 'food', contact: '123455224', description: 'Fresh food packs available for families in need.' },
-  { id: 2, type: 'Clothes', quantity: 10, image: Shoes, category: 'clothes', contact: '987654321', description: 'Gently used clothing for all ages.' },
-  { id: 3, type: 'Toys', quantity: 5, image: null, category: 'toys', contact: '111222333', description: 'Educational toys for children aged 3–10.' },
-];
-
-export default function Marketplace() {
+export default function Marketplace({ donations, onCreateClaim }) {
   const [category, setCategory] = useState('all');
-  const [donations, setDonations] = useState(initialDonations);
   const [selectedId, setSelectedId] = useState(null);
 
   const filteredDonations = category === 'all'
@@ -30,12 +21,9 @@ export default function Marketplace() {
     setSelectedId(null);
   };
 
-  const handleClaim = ({ remaining }) => {
-    setDonations(prevDonations =>
-      prevDonations.map(item =>
-        item.id === selectedId ? { ...item, quantity: remaining } : item
-      )
-    );
+  const handleClaim = ({ donationId, quantity, note }) => {
+    onCreateClaim?.({ donationId, quantity, note });
+    handleCloseMore();
   };
 
   return (
@@ -62,8 +50,9 @@ export default function Marketplace() {
 
       {selectedDonation && (
         <DonationModal
-          title={selectedDonation.type}
-          contactInfo={selectedDonation.contact}
+          donationId={selectedDonation.id}
+          title={selectedDonation.typeOfDonation || selectedDonation.type}
+          contactInfo={selectedDonation.contactInfo || selectedDonation.contact}
           initialQuantity={selectedDonation.quantity}
           description={selectedDonation.description}
           image={selectedDonation.image}

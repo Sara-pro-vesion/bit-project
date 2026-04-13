@@ -17,7 +17,7 @@ export default function LoginForm() {
     <div className="bg-white p-12 mx-auto mt-20 md:w-[380px]">
     
       <h2 className=" text-left text-[34px] font-bold text-[#0f172a] leading-tight mb-12">
-        welcome to <br /> brandName
+        welcome to <br /> KindReach
       </h2>
 
       <form onSubmit={handleSubmit} className=" space-y-7 mb-6">

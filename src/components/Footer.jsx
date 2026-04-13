@@ -1,3 +1,5 @@
+import Kindreach from '../assets/kindreach.png';
+
 export default function Footer() {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -9,10 +11,12 @@ export default function Footer() {
     <div className="grid grid-cols-1 md:grid-cols-4 gap-10 md:items-start text-center md:text-left">
         
         <div className="flex flex-col items-center md:items-start order-2 md:order-1">
-          <h1 className="hidden md:block text-5xl font-light text-slate-100 mb-6">
-        brand name
-      </h1>
-          <div className="block md:hidden w-16 h-12 bg-slate-500 rounded-xl mb-12"></div>
+          <div className="hidden md:block bg-slate-100 rounded mb-6">
+        <img src={Kindreach} alt="Kindreach logo" className="h-10" />
+      </div>
+          <div className="block md:hidden mb-12">
+            <img src={Kindreach} alt="Kindreach logo" className="h-10" />
+          </div>
         </div>
     <div className="space-y-2 order-3 md:order-2">
           <h4 className="text-xl text-slate-100 mb-4 md:mb-6">social media</h4>
@@ -28,13 +32,13 @@ export default function Footer() {
         <div className="hidden md:flex justify-end order-1 md:order-4">
           <button onClick={scrollToTop} className="flex gap-2 items-center hover:text-white text-sm">
             BACK TO THE TOP
-            <span className="text-xl font-bold">""</span>
+            <span className="text-xl font-bold">↑↑</span>
           </button>
         </div>
       <div className="block md:hidden order-1 mb-8">
           <button onClick={scrollToTop} className="flex gap-1 items-center hover:text-white text-base">
-            BACK TO THE TOP
-            <span className="text-xl font-bold">""</span>
+            BACK TO THE TOP 
+            <span className="text-xl font-bold">↑↑</span>
           </button>
         </div>
       </div>
