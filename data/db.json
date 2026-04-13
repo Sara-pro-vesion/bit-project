@@ -1,5 +1,84 @@
 {
-  "users": [],
-  "posts": [],
-  "claims": []
+  "users": [
+    {
+      "_id": "b95276cd-d1a1-4d09-8d93-44d50a8ad01b",
+      "name": "sara",
+      "email": "sara@gmail.com",
+      "passwordHash": "$2b$10$JGaTCn0gL6qCKODlNigIN.N4IMSfMbySEaxLv2AL2c8QNt2NWdvJi",
+      "role": "donor",
+      "organization": "",
+      "createdAt": "2026-04-13T22:53:41.555Z"
+    },
+    {
+      "_id": "abdb43c4-400c-4a41-be32-8e84cf104026",
+      "name": "manar",
+      "email": "manar@gmail.com",
+      "passwordHash": "$2b$10$yuuwJlJ3hgCntaAfQSGoTOeP42FxHkPwKo6P.87MKWgmbPtZsfFZa",
+      "role": "charity",
+      "organization": "Org-234567",
+      "createdAt": "2026-04-13T22:55:18.097Z"
+    }
+  ],
+  "posts": [
+    {
+      "_id": "c203b94c-40f9-4327-978c-506aef3cad4a",
+      "donorId": "b95276cd-d1a1-4d09-8d93-44d50a8ad01b",
+      "donorName": "sara",
+      "typeOfDonation": "food",
+      "type": "food",
+      "category": "food",
+      "quantity": 8,
+      "description": "good food Account creation returned success",
+      "contactInfo": "sara@gmail.com",
+      "image": "/uploads/1776120872641-c6704ae0-bdc0-4b3e-9bee-38bd5ccda9a4.jfif",
+      "createdAt": "2026-04-13T22:54:33.126Z",
+      "updatedAt": "2026-04-13T22:57:12.824Z"
+    }
+  ],
+  "claims": [
+    {
+      "_id": "51517f32-c06c-46c0-9b4f-a71901b90f0c",
+      "postId": "c203b94c-40f9-4327-978c-506aef3cad4a",
+      "donorId": "b95276cd-d1a1-4d09-8d93-44d50a8ad01b",
+      "charityId": "abdb43c4-400c-4a41-be32-8e84cf104026",
+      "donationType": "food",
+      "type": "food",
+      "requester": "Org-234567",
+      "quantity": 7,
+      "note": "",
+      "status": "rejected",
+      "requestedAt": "4/13/2026",
+      "createdAt": "2026-04-13T22:56:10.025Z",
+      "reviewedAt": "2026-04-13T22:57:08.218Z"
+    },
+    {
+      "_id": "b6a40d33-65e3-4a3b-a31f-3bb83e976d88",
+      "postId": "c203b94c-40f9-4327-978c-506aef3cad4a",
+      "donorId": "b95276cd-d1a1-4d09-8d93-44d50a8ad01b",
+      "charityId": "abdb43c4-400c-4a41-be32-8e84cf104026",
+      "donationType": "food",
+      "type": "food",
+      "requester": "Org-234567",
+      "quantity": 2,
+      "note": "",
+      "status": "approved",
+      "requestedAt": "4/13/2026",
+      "createdAt": "2026-04-13T22:56:36.795Z",
+      "reviewedAt": "2026-04-13T22:57:12.824Z"
+    },
+    {
+      "_id": "8ae5da45-f729-40a9-bb9e-c5ffe8b69124",
+      "postId": "c203b94c-40f9-4327-978c-506aef3cad4a",
+      "donorId": "b95276cd-d1a1-4d09-8d93-44d50a8ad01b",
+      "charityId": "abdb43c4-400c-4a41-be32-8e84cf104026",
+      "donationType": "food",
+      "type": "food",
+      "requester": "Org-234567",
+      "quantity": 2,
+      "note": "",
+      "status": "pending",
+      "requestedAt": "4/13/2026",
+      "createdAt": "2026-04-13T23:03:32.012Z"
+    }
+  ]
 }
