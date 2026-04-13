@@ -1,62 +1,87 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import api from '../services/api';
 
 export default function SignupForm() {
+  const navigate = useNavigate();
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [showInput, setShowInput] = useState(false);
+
   const [formData, setFormData] = useState({
-    username: '',
+    username: '', 
     email: '',
     password: '',
-    role: 'donor',
-    Authnumber: '0',
+   role: 'donor',
+   Authnumber: '0',
     agreedToTerms: false,
   });
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value,
-    }));
-  };
+          const handleChange = (e) => {
+            const { name, value, type, checked } = e.target;
+            setFormData((prev) => ({
+              ...prev,
+          [name]: type === 'checkbox' ? checked : value,
+            }));
+          };
 
-  
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submit Signup Data:", formData);
-    // API endpoint call for registration here
+    setError('');
+    setIsLoading(true);
+
+    try {
+      const payload = {
+        name: formData.username,
+        email: formData.email,
+        password: formData.password,
+        role: formData.role,
+        organization: formData.role === 'charity' ? `Org-${formData.Authnumber}` : undefined
+            };
+
+      await api.post('/auth/register', payload);
+      
+ // Success
+        navigate('/login');
+    } catch (err) {
+      setError(err.response?.data?.message || 'Registration failed. Try again.');
+    } finally {
+      setIsLoading(false);
+    }
   };
-
-
-  const [showInput, setShowInput] = useState(false);
 
   return (
-    <div className="w-[380px] bg-white p-12 font-sans mx-auto ">
-      
+    <div className="w-[380px] bg-white p-12 font-sans mx-auto">
       <h2 className="text-[34px] font-bold text-[#0f172a] leading-tight mb-10">
-         create your account
+        create your account
       </h2>
 
-      <form onSubmit={handleSubmit} className="space-y-4 mb-6">
-        
+      {error && (
+        <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-600 rounded-lg text-sm">
+          {error}
+        </div>
+      )}
 
+      <form onSubmit={handleSubmit} className="space-y-4 mb-6">
         <input 
-          type="text" 
-          name="username"
-          placeholder="username .." 
-          value={formData.username}
-          onChange={handleChange}
-          className="w-full px-5 py-3 border border-gray-300 rounded-xl bg-white text-gray-900 placeholder:text-gray-400 text-lg focus:ring-2 focus:ring-blue-200 focus:border-blue-400 transition-all"
-          required
+              type="text" 
+              name="username"
+              placeholder="username .." 
+              value={formData.username}
+              onChange={handleChange}
+              className="w-full px-5 py-3 border border-gray-300 rounded-xl text-lg focus:ring-2 focus:ring-blue-200 focus:border-blue-400 outline-none transition-all"
+              required
+          disabled={isLoading}
         />
 
         <input 
           type="email" 
           name="email"
-          placeholder="email .." 
+              placeholder="email .." 
           value={formData.email}
-          onChange={handleChange}
-          className="w-full px-5 py-3 border border-gray-300 rounded-xl bg-white text-gray-900 placeholder:text-gray-400 text-lg focus:ring-2 focus:ring-blue-200 focus:border-blue-400 transition-all"
-          required
+            onChange={handleChange}               className="w-full px-5 py-3 border border-gray-300 rounded-xl text-lg focus:ring-2 focus:ring-blue-200 focus:border-blue-400 outline-none transition-all"
+             required
+          disabled={isLoading}
         />
 
         <input 
@@ -65,46 +90,38 @@ export default function SignupForm() {
           placeholder="password .." 
           value={formData.password}
           onChange={handleChange}
-          className="w-full px-5 py-3 border border-gray-300 rounded-xl bg-white text-gray-900 placeholder:text-gray-400 text-lg focus:ring-2 focus:ring-blue-200 focus:border-blue-400 transition-all"
+          className="w-full px-5 py-3 border border-gray-300 rounded-xl text-lg focus:ring-2 focus:ring-blue-200 focus:border-blue-400 outline-none transition-all"
           required
+          disabled={isLoading}
         />
 
-
         <div className="mt-8">
-          <label className="text-lg text-[#334155] font-medium block mb-2">
-            I am a:
-          </label>
+          <label className="text-lg text-[#334155] font-medium block mb-2">I am a:</label>
           <div className="bg-[#f1f5f9] p-1 rounded-full flex items-center justify-between gap-1 w-full border border-slate-200">
-            
-       <button
+          <button
               type="button"
-              onClick={() => {
-                 setFormData((prev) => ({ ...prev, role: 'donor', Authnumber: '0' }));
-                 setShowInput(false);
+        onClick={() => {
+                setFormData((prev) => ({ ...prev, role: 'donor', Authnumber: '0' }));
+                setShowInput(false);
               }}
-              className={`flex-1 text-center py-2 px-6 rounded-full text-lg font-medium transition-colors ${
-                formData.role === 'donor'
-                  ? 'bg-[#2563eb] text-white shadow-md'
-                  : 'text-slate-600 hover:bg-slate-100'
-              }`}
+          className={`flex-1 text-center py-2 px-6 rounded-full text-lg font-medium transition-colors ${
+                formData.role === 'donor' ? 'bg-[#2563eb] text-white shadow-md' : 'text-slate-600 hover:bg-slate-100'
+            }`}
             >
               Donor
             </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setShowInput(true);
-                    setFormData((prev) => ({ ...prev, role: 'charity', Authnumber: '' }));
-                  }}
-                  className={`flex-1 text-center py-2 px-6 rounded-full text-lg font-medium transition-colors ${
-                    formData.role === 'charity'
-                      ? 'bg-[#2563eb] text-white shadow-md'
-                      : 'text-slate-600 hover:bg-slate-100'
-                  }`}
-                >
-                  Charity
-                </button>
-            
+            <button
+              type="button"
+              onClick={() => {
+                setShowInput(true);
+                setFormData((prev) => ({ ...prev, role: 'charity', Authnumber: '' }));
+                        }}
+            className={`flex-1 text-center py-2 px-6 rounded-full text-lg font-medium transition-colors ${
+              formData.role === 'charity' ? 'bg-[#2563eb] text-white shadow-md' : 'text-slate-600 hover:bg-slate-100'
+              }`}
+            >
+              Charity
+          </button>
           </div>
         </div>
 
@@ -115,51 +132,39 @@ export default function SignupForm() {
             placeholder="Auth number .."
             value={formData.Authnumber}
             onChange={handleChange}
-            className="w-full px-5 py-3 border border-gray-300 rounded-xl bg-white text-gray-900 placeholder:text-gray-400 text-lg focus:ring-2 focus:ring-blue-200 focus:border-blue-400 transition-all"
+            className="w-full px-5 py-3 border border-gray-300 rounded-xl text-lg focus:ring-2 focus:ring-blue-200 focus:border-blue-400 outline-none transition-all"
             required={formData.role === 'charity'}
+            disabled={isLoading}
           />
         )}
 
-        {/* Terms Checkbox */}
         <div className="flex items-start gap-3 mt-8">
           <input 
             type="checkbox" 
             name="agreedToTerms"
             checked={formData.agreedToTerms}
             onChange={handleChange}
-            className="w-5 h-5 mt-1 border border-gray-300 rounded text-[#2563eb] focus:ring-blue-400"
+            className="w-5 h-5 mt-1 border border-gray-300 rounded text-[#2563eb]"
             required
           />
-
           <label className="text-[#334155] text-lg leading-snug">
-            I have read and agree to the{' '}
-            <a href="#" className="text-[#2563eb] hover:underline">
-              Terms & Conditions
-            </a>.
+            I agree to the <a href="#" className="text-[#2563eb] hover:underline">Terms & Conditions</a>.
           </label>
         </div>
 
-
         <button 
-          type="submit" 
-          className="bg-[#2563eb] text-white px-10 py-2 rounded-xl text-xl font-medium hover:bg-[#1d4ed8] transition-colors mt-6"
+        type="submit" 
+        disabled={isLoading}
+        className={`bg-[#2563eb] text-white px-10 py-2 rounded-xl text-xl font-medium transition-colors mt-6 w-full ${
+            isLoading ? 'opacity-50 cursor-not-allowed' : 'hover:bg-[#1d4ed8]'          }`}
         >
-          Sign Up
+          {isLoading ? 'Creating account...' : 'Sign Up'}
         </button>
       </form>
 
-      {/* Login link */}
-      <p className="text-[#334155] text-lg leading-snug">
-        already have an accout?{' '}
-        <Link to="/login" className="text-[#2563eb] hover:underline font-medium">
-          log in
-        </Link>
-      </p>
-      <p className="text-[#334155] text-lg leading-snug mt-4">
-        or continue to the donation marketplace{' '}
-        <Link to="/CharityHome" className="text-[#2563eb] hover:underline font-medium">
-          here
-        </Link>.
+      <p className="text-[#334155] text-lg">
+        already have an account?{' '}
+        <Link to="/login" className="text-[#2563eb] hover:underline font-medium">log in</Link>
       </p>
     </div>
   );
