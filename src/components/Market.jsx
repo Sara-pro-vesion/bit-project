@@ -3,7 +3,7 @@ import { useState } from 'react';
 import CardCh from './CardCh';
 import DonationModal from './MoreInfo';
 
-export default function Marketplace({ donations, onCreateClaim }) {
+export default function Marketplace({ donations = [], onCreateClaim }) {
   const [category, setCategory] = useState('all');
   const [selectedId, setSelectedId] = useState(null);
 

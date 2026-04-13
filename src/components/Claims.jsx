@@ -24,7 +24,7 @@ export default function Claims({ claims = [], mode = "donor", onApprove, onRejec
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-10 gap-x-5 justify-items-center">
             {claims.map((item) => (
               <ClaimCard
-                key={item.id}
+                key={item._id ?? item.id}
                 data={item}
                 onApprove={onApprove}
                 onReject={onReject}

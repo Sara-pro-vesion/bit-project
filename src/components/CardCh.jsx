@@ -5,7 +5,7 @@ export default function CardCh({ data, onMoreClick }) {
         {data?.image ? (
           <img
             src={data.image}
-            alt={data?.type || 'Donation image'}
+            alt={data?.typeOfDonation || data?.type || 'Donation image'}
             className="w-full h-full object-cover"
           />
         ) : (
@@ -16,7 +16,7 @@ export default function CardCh({ data, onMoreClick }) {
       </div>
       <div className="p-4">
         <h4 className="text-[22px] font-semibold text-slate-900 mb-4">
-          {data?.type || 'Unknown'}
+          {data?.typeOfDonation || data?.type || 'Unknown'}
         </h4>
         <div className="flex items-center justify-between">
           <span className="text-slate-700 text-[18px] font-medium">

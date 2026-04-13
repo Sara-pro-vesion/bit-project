@@ -66,7 +66,8 @@ export default function SignupForm() {
         <input 
               type="text" 
               name="username"
-              placeholder="username .." 
+              placeholder="username .."
+              autoComplete="username"
               value={formData.username}
               onChange={handleChange}
               className="w-full px-5 py-3 border border-gray-300 rounded-xl text-lg focus:ring-2 focus:ring-blue-200 focus:border-blue-400 outline-none transition-all"
@@ -77,7 +78,8 @@ export default function SignupForm() {
         <input 
           type="email" 
           name="email"
-              placeholder="email .." 
+              placeholder="email .."
+              autoComplete="email"
           value={formData.email}
             onChange={handleChange}               className="w-full px-5 py-3 border border-gray-300 rounded-xl text-lg focus:ring-2 focus:ring-blue-200 focus:border-blue-400 outline-none transition-all"
              required
@@ -87,7 +89,8 @@ export default function SignupForm() {
         <input 
           type="password" 
           name="password"
-          placeholder="password .." 
+          placeholder="password .."
+          autoComplete="new-password"
           value={formData.password}
           onChange={handleChange}
           className="w-full px-5 py-3 border border-gray-300 rounded-xl text-lg focus:ring-2 focus:ring-blue-200 focus:border-blue-400 outline-none transition-all"
